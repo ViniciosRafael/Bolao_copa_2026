@@ -4,6 +4,8 @@
  */
 package com.mycompany.sistemabolao;
 
+import java.util.Date;
+
 /**
  *
  * @author vinic
