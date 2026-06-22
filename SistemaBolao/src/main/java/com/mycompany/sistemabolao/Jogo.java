@@ -48,10 +48,17 @@ public class Jogo {
     public void setSelecaoA(Selecao selecaoA) {this.selecaoA = selecaoA;}
 
     public boolean isFinalizado() {return finalizado;}
+    
+    public int getPlacarMandante() {
+    return golsSelecaoA;
+}
+    public int getPlacarVisitante() {
+    return golsSelecaoB;
+}
 
     @Override
     public String toString() {
         String placar = finalizado ? golsSelecaoA + " x " + golsSelecaoB : "Agendado";
         return selecaoA.getNome() + " vs " + selecaoB.getNome() + " (" + placar + ")";
-    }   
+    }
 }
