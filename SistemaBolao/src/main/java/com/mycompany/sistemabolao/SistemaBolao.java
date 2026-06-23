@@ -4,7 +4,6 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Ponto de entrada do Bolão Copa 2026.
  *
  * @author vinic
  */
