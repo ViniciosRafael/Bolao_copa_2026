@@ -10,38 +10,29 @@ package com.mycompany.sistemabolao;
  */
 public class RegraGolsJogador implements Pontuacao {
 
-    // Pontos dados por cada gol acertado
-    private static final int PONTOS_POR_GOL_ACERTADO = 2;
+    // Pontos dados por cada gol marcado pelo jogador apostado
+    private static final int PONTOS_POR_GOL = 2;
 
+    /**
+     * Pontua com base no jogador apostado pelo participante no palpite.
+     * Para cada gol que o jogador apostado marcar no jogo real,
+     * o participante recebe PONTOS_POR_GOL pontos.
+     * Se nenhum jogador foi apostado, a regra não pontua.
+     * @param palpite
+     */
     @Override
     public int calcular(Palpite palpite, Jogo jogo, ResultadoGols resultado) {
-        int pontos = 0;
+        String jogadorApostado = palpite.getJogadorApostado();
 
-        // Verifica se o total de gols do mandante foi acertado
-        int golsMandanteReal = jogo.getPlacarMandante();
-        int golsVisitanteReal = jogo.getPlacarVisitante();
-
-        // Acertou o placar do mandante?
-        if (palpite.getPlacarMandantePrevisto() == golsMandanteReal) {
-            pontos += PONTOS_POR_GOL_ACERTADO;
+        // Sem jogador apostado → regra não se aplica
+        if (jogadorApostado == null || jogadorApostado.isBlank()) {
+            return 0;
         }
 
-        // Acertou o placar do visitante?
-        if (palpite.getPlacarVisitantePrevisto() == golsVisitanteReal) {
-            pontos += PONTOS_POR_GOL_ACERTADO;
-        }
+        // Busca quantos gols o jogador apostado marcou de verdade
+        int golsReais = resultado.getGols(jogadorApostado);
 
-        // Acertou o placar EXATO (mandante e visitante)?
-        boolean acertouExato = palpite.getPlacarMandantePrevisto() == golsMandanteReal
-                            && palpite.getPlacarVisitantePrevisto() == golsVisitanteReal;
-        if (acertouExato) {
-            pontos += 5; // Bônus por placar exato
-        }
-
-        for (GolsPorJogador gols : resultado.getGolsDoJogo()) {
-            pontos += gols.getQuantidadeGols();
-        }
-
-        return pontos;
+        // Pontua por cada gol do jogador apostado
+        return golsReais * PONTOS_POR_GOL;
     }
 }

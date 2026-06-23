@@ -18,12 +18,24 @@ public class Palpite {
     private int placarVisitantePrevisto;
     private int pontuacaoObtida;
 
+    // Jogador apostado pelo participante para marcar gol no jogo (pode ser null)
+    private String jogadorApostado;
+
 
     public Palpite(int id, int placarMandantePrevisto, int placarVisitantePrevisto) {
         this.id = id;
         this.placarMandantePrevisto = placarMandantePrevisto;
         this.placarVisitantePrevisto = placarVisitantePrevisto;
-        this.pontuacaoObtida = 0; 
+        this.pontuacaoObtida = 0;
+        this.jogadorApostado = null;
+    }
+
+    public Palpite(int id, int placarMandantePrevisto, int placarVisitantePrevisto, String jogadorApostado) {
+        this.id = id;
+        this.placarMandantePrevisto = placarMandantePrevisto;
+        this.placarVisitantePrevisto = placarVisitantePrevisto;
+        this.pontuacaoObtida = 0;
+        this.jogadorApostado = jogadorApostado;
     }
 
     public int calcularPontuacao(Pontuacao[] regras, Jogo jogo, ResultadoGols resultado) {
@@ -63,11 +75,20 @@ public class Palpite {
         return pontuacaoObtida;
     }
 
+    public String getJogadorApostado() {
+        return jogadorApostado;
+    }
+
+    public void setJogadorApostado(String jogadorApostado) {
+        this.jogadorApostado = jogadorApostado;
+    }
 
     @Override
     public String toString() {
-        return "Palpite #" + id + " | " 
+        String jogador = jogadorApostado != null ? " | Jogador: " + jogadorApostado : "";
+        return "Palpite #" + id + " | "
              + placarMandantePrevisto + " x " + placarVisitantePrevisto
+             + jogador
              + " | Pontos: " + pontuacaoObtida;
     }
 }
