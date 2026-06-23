@@ -4,23 +4,28 @@
  */
 package com.mycompany.sistemabolao;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author vinic
  */
 public class Jogo {
- // Atributos privados para encapsulamento
+
+    // Atributos privados para encapsulamento
     private Selecao selecaoA;
     private Selecao selecaoB;
     private int golsSelecaoA;
     private int golsSelecaoB;
-    private Date dataHora;
+    private LocalDateTime dataHora; // Substituído java.util.Date pelo moderno java.time.LocalDateTime
     private boolean finalizado; // Indica se o administrador já inseriu o placar real
 
+    private static final DateTimeFormatter FORMATTER =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
     // Construtor para criar o jogo (inicialmente sem placar definido e não finalizado)
-    public Jogo(Selecao selecaoA, Selecao selecaoB, Date dataHora) {
+    public Jogo(Selecao selecaoA, Selecao selecaoB, LocalDateTime dataHora) {
         this.selecaoA = selecaoA;
         this.selecaoB = selecaoB;
         this.dataHora = dataHora;
@@ -37,28 +42,27 @@ public class Jogo {
     }
 
     // Métodos Getters e Setters
-    public Selecao getSelecaoA() {return selecaoA;}
-    public Selecao getSelecaoB() {return selecaoB;}
-    public void setSelecaoB(Selecao selecaoB) {this.selecaoB = selecaoB;}
-    public int getGolsSelecaoA() {return golsSelecaoA;}
-    public int getGolsSelecaoB() {return golsSelecaoB;}
-    public Date getDataHora() {return dataHora;}
+    public Selecao getSelecaoA() { return selecaoA; }
+    public void setSelecaoA(Selecao selecaoA) { this.selecaoA = selecaoA; }
 
-    public void setDataHora(Date dataHora) {this.dataHora = dataHora;}
-    public void setSelecaoA(Selecao selecaoA) {this.selecaoA = selecaoA;}
+    public Selecao getSelecaoB() { return selecaoB; }
+    public void setSelecaoB(Selecao selecaoB) { this.selecaoB = selecaoB; }
 
-    public boolean isFinalizado() {return finalizado;}
-    
-    public int getPlacarMandante() {
-    return golsSelecaoA;
-}
-    public int getPlacarVisitante() {
-    return golsSelecaoB;
-}
+    public int getGolsSelecaoA() { return golsSelecaoA; }
+    public int getGolsSelecaoB() { return golsSelecaoB; }
+
+    public LocalDateTime getDataHora() { return dataHora; }
+    public void setDataHora(LocalDateTime dataHora) { this.dataHora = dataHora; }
+
+    public boolean isFinalizado() { return finalizado; }
+
+    public int getPlacarMandante() { return golsSelecaoA; }
+    public int getPlacarVisitante() { return golsSelecaoB; }
 
     @Override
     public String toString() {
         String placar = finalizado ? golsSelecaoA + " x " + golsSelecaoB : "Agendado";
-        return selecaoA.getNome() + " vs " + selecaoB.getNome() + " (" + placar + ")";
+        String data = dataHora != null ? " [" + dataHora.format(FORMATTER) + "]" : "";
+        return selecaoA.getNome() + " vs " + selecaoB.getNome() + data + " (" + placar + ")";
     }
 }

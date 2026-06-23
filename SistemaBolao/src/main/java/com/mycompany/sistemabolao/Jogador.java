@@ -9,35 +9,42 @@ package com.mycompany.sistemabolao;
  * @author vinic
  */
 public class Jogador {
+
     // Atributos privados para encapsulamento
     private String nome;
-    private String posicao; // Inicialmente como String para simplificar seu modelo atual
+    private String posicao;
+    private int numeroCamisa;   // Presente no UML mas ausente no código original
+    private double pesoPontuacao; // Multiplicador de bônus ao apostar neste jogador (ex: 1.0 = normal, 1.5 = artilheiro favorito)
 
-    // Construtor
-    public Jogador(String nome, String posicao) {
+    // Construtor completo
+    public Jogador(String nome, String posicao, int numeroCamisa, double pesoPontuacao) {
         this.nome = nome;
         this.posicao = posicao;
+        this.numeroCamisa = numeroCamisa;
+        this.pesoPontuacao = pesoPontuacao;
+    }
+
+    // Construtor simplificado — peso padrão 1.0 (sem bônus)
+    public Jogador(String nome, String posicao, int numeroCamisa) {
+        this(nome, posicao, numeroCamisa, 1.0);
     }
 
     // Métodos Getters e Setters
-    public String getNome() {
-        return nome;
-    }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    public String getPosicao() { return posicao; }
+    public void setPosicao(String posicao) { this.posicao = posicao; }
 
-    public String getPosicao() {
-        return posicao;
-    }
+    public int getNumeroCamisa() { return numeroCamisa; }
+    public void setNumeroCamisa(int numeroCamisa) { this.numeroCamisa = numeroCamisa; }
 
-    public void setPosicao(String posicao) {
-        this.posicao = posicao;
-    }
+    public double getPesoPontuacao() { return pesoPontuacao; }
+    public void setPesoPontuacao(double pesoPontuacao) { this.pesoPontuacao = pesoPontuacao; }
 
     @Override
     public String toString() {
-        return nome + " (" + posicao + ")";
+        return "#" + numeroCamisa + " " + nome + " (" + posicao + ")"
+             + (pesoPontuacao != 1.0 ? " [x" + pesoPontuacao + "]" : "");
     }
 }
