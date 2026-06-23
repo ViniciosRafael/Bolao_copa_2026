@@ -3,31 +3,6 @@
 
 DIAGRAMA DE CLASSE DISPONIVEL NA PASTA PRINCIPAL
 
-SistemaBolao/
-└── src/main/java/com/mycompany/sistemabolao/
-    ├── SistemaBolao.java        # Ponto de entrada (main)
-    ├── MenuSistema.java         # Menu interativo via console
-    ├── ExibicaoSistema.java     # Exibição de resultados e ranking
-    │
-    ├── Usuario.java             # Classe abstrata base
-    ├── Administrador.java       # Herda Usuario
-    ├── Participante.java        # Herda Usuario, possui lista de palpites
-    │
-    ├── Selecao.java             # Seleção com nome, sigla e jogadores
-    ├── Jogador.java             # Jogador com posição, camisa e peso de pontuação
-    ├── Jogo.java                # Jogo entre duas seleções com data/hora
-    ├── Palpite.java             # Palpite de um participante em um jogo
-    │
-    ├── ResultadoGols.java       # Resultado real com gols por jogador
-    ├── GolsPorJogador.java      # Gols marcados por um jogador específico
-    ├── Ranking.java             # Ordenação dos participantes por pontuação
-    │
-    ├── Pontuacao.java           # Interface Strategy de pontuação
-    ├── RegraVencedor.java       # +3 pts por acertar o vencedor
-    ├── RegraGolsEquipe.java     # +2 pts por acertar gols de cada time
-    ├── RegraPlacarExato.java    # +5 pts por acertar o placar exato
-    └── RegraGolsJogador.java    # +2 pts por gol do jogador apostado
-```
 
 ## 📋 Fluxo de uso
 
