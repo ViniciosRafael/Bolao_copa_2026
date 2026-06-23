@@ -13,6 +13,10 @@ public class Palpite {
     // Identificador único do palpite
     private int id;
 
+    // Referências que contextualizam o palpite: quem apostou e em qual jogo
+    private Participante participante;
+    private Jogo jogo;
+
     // Placar previsto pelo participante
     private int placarMandantePrevisto;
     private int placarVisitantePrevisto;
@@ -22,28 +26,36 @@ public class Palpite {
     private String jogadorApostado;
 
 
-    public Palpite(int id, int placarMandantePrevisto, int placarVisitantePrevisto) {
+    public Palpite(int id, Participante participante, Jogo jogo,
+                   int placarMandantePrevisto, int placarVisitantePrevisto) {
         this.id = id;
+        this.participante = participante;
+        this.jogo = jogo;
         this.placarMandantePrevisto = placarMandantePrevisto;
         this.placarVisitantePrevisto = placarVisitantePrevisto;
         this.pontuacaoObtida = 0;
         this.jogadorApostado = null;
     }
 
-    public Palpite(int id, int placarMandantePrevisto, int placarVisitantePrevisto, String jogadorApostado) {
+    public Palpite(int id, Participante participante, Jogo jogo,
+                   int placarMandantePrevisto, int placarVisitantePrevisto,
+                   String jogadorApostado) {
         this.id = id;
+        this.participante = participante;
+        this.jogo = jogo;
         this.placarMandantePrevisto = placarMandantePrevisto;
         this.placarVisitantePrevisto = placarVisitantePrevisto;
         this.pontuacaoObtida = 0;
         this.jogadorApostado = jogadorApostado;
     }
 
-    public int calcularPontuacao(Pontuacao[] regras, Jogo jogo, ResultadoGols resultado) {
+    public int calcularPontuacao(Pontuacao[] regras, ResultadoGols resultado) {
         int total = 0;
 
         // Passa por cada regra e soma os pontos que cada uma dá
+        // Agora usa o próprio jogo interno, sem precisar recebê-lo como parâmetro
         for (Pontuacao regra : regras) {
-            total += regra.calcular(this, jogo, resultado);
+            total += regra.calcular(this, this.jogo, resultado);
         }
 
         // Salva a pontuação calculada no próprio palpite
@@ -53,6 +65,14 @@ public class Palpite {
 
     public int getId() {
         return id;
+    }
+
+    public Participante getParticipante() {
+        return participante;
+    }
+
+    public Jogo getJogo() {
+        return jogo;
     }
 
     public int getPlacarMandantePrevisto() {
@@ -86,8 +106,10 @@ public class Palpite {
     @Override
     public String toString() {
         String jogador = jogadorApostado != null ? " | Jogador: " + jogadorApostado : "";
-        return "Palpite #" + id + " | "
-             + placarMandantePrevisto + " x " + placarVisitantePrevisto
+        return "Palpite #" + id
+             + " | " + participante.getNome()
+             + " → " + jogo.toString()
+             + " | Placar previsto: " + placarMandantePrevisto + " x " + placarVisitantePrevisto
              + jogador
              + " | Pontos: " + pontuacaoObtida;
     }
