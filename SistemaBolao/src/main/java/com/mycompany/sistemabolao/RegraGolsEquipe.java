@@ -11,6 +11,13 @@ package com.mycompany.sistemabolao;
 public class RegraGolsEquipe implements Pontuacao {
     private static final int PONTOS_POR_EQUIPE = 2; // Valor de exemplo
 
+    /**
+     *
+     * @param palpite
+     * @param jogo
+     * @param resultado
+     * @return
+     */
     @Override
     public int calcular(Palpite palpite, Jogo jogo, ResultadoGols resultado) {
         int pontos = 0;
