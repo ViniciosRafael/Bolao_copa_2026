@@ -175,10 +175,12 @@ public class MenuSistema{
     private void registrarPalpite() {
         System.out.println("\n--- REGISTRAR PALPITE ---");
         if (jogos.isEmpty()) {
+            // Garante que existam jogos antes de permitir registro de palpite
             System.out.println(" Nenhum jogo cadastrado.");
             return;
         }
         if (participantes.isEmpty()) {
+            // Garante que existam participantes antes de permitir registro de palpite
             System.out.println("  Nenhum participante cadastrado.");
             return;
         }
@@ -197,6 +199,7 @@ public class MenuSistema{
         Jogo jogo = selecionarJogo();
         if (jogo == null) return;
 
+        // Não permite palpitar em jogos já finalizados
         if (jogo.isFinalizado()) {
             System.out.println("   Este jogo já foi finalizado. Não é possível registrar palpite.");
             return;
@@ -246,6 +249,7 @@ public class MenuSistema{
         Jogo jogo = selecionarJogo();
         if (jogo == null) return;
 
+        // Impede que um jogo já finalizado receba novo resultado
         if (jogo.isFinalizado()) {
             System.out.println("  Este jogo já possui resultado registrado.");
             return;
@@ -300,6 +304,7 @@ public class MenuSistema{
     }
 
     private Jogo selecionarJogo() {
+        // Converte a escolha numérica do usuário em índice de lista
         int idx = lerInt() - 1;
         if (idx < 0 || idx >= jogos.size()) {
             System.out.println(" Opção inválida.");
@@ -310,17 +315,20 @@ public class MenuSistema{
     }
 
     private Participante selecionarParticipante() {
+        // Converte a escolha numérica do usuário em índice de lista
         int idx = lerInt() - 1;
         if (idx < 0 || idx >= participantes.size()) {
             System.out.println("   Opção inválida.");
             return null;
         }
+        // Retorna o objeto Participante escolhido pelo usuário
         return participantes.get(idx);
     }
 
     // ---------------------------------------------------------------
     // HELPERS DE LEITURA
     // ---------------------------------------------------------------
+    // Lê um número inteiro válido do console, repetindo até o usuário digitar corretamente.
     private int lerInt() {
         while (true) {
             try {
@@ -332,6 +340,7 @@ public class MenuSistema{
         }
     }
 
+    // Lê um número decimal válido do console e aceita vírgula ou ponto.
     private double lerDouble() {
         while (true) {
             try {
