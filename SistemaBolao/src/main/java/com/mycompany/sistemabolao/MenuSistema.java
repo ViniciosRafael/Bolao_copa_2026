@@ -157,8 +157,10 @@ public class MenuSistema{
         System.out.print("  Email: ");
         String email = scanner.nextLine().trim();
 
-        // Cria um novo objeto Participante e armazena na lista do sistema.
-        // Participante estende Usuario e herdará nome/email da classe base.
+        // Cria um novo objeto Participante com os dados informados.
+        // O participante herda de Usuario, então ele reutiliza os campos nome e email
+        // definidos na classe base. Em seguida, o objeto é armazenado na lista de
+        // participantes para que possa ser usado em palpites e no ranking do bolão.
         participantes.add(new Participante(nome, email));
         System.out.println("   Participante " + nome + " cadastrado com sucesso!");
     }
