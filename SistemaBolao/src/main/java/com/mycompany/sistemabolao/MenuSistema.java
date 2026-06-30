@@ -58,7 +58,8 @@ public class MenuSistema{
 
             // Lê a opção numérica escolhida pelo usuário
             opcao = lerInt();
-            // Cada opção chama um método separado, seguindo o princípio de responsabilidade única
+            // Usa um switch para delegar a ação certa para cada opção do menu
+            // Isso mantém cada funcionalidade separada em métodos diferentes.
             switch (opcao) {
                 case 1 -> cadastrarSelecao();
                 case 2 -> cadastrarJogo();
@@ -86,6 +87,7 @@ public class MenuSistema{
         Selecao selecao = new Selecao(nome, sigla);
 
         System.out.print("  Quantos jogadores deseja cadastrar? ");
+        // Guarda quantos jogadores serão cadastrados para a nova seleção
         int qtd = lerInt();
         for (int i = 0; i < qtd; i++) {
             System.out.println("  Jogador " + (i + 1) + ":");
@@ -121,10 +123,12 @@ public class MenuSistema{
         exibicao.exibirSelecoes(selecoes);
 
         System.out.print("  Número da seleção mandante: ");
+        // Seleciona o objeto Selecao correspondente à escolha do usuário
         Selecao mandante = selecionarSelecao();
         if (mandante == null) return;
 
         System.out.print("  Número da seleção visitante: ");
+        // Seleciona o objeto Selecao visitante e valida a escolha
         Selecao visitante = selecionarSelecao();
         if (visitante == null) return;
 
@@ -182,12 +186,14 @@ public class MenuSistema{
         // Exibe participantes existentes para o usuário escolher
         exibicao.exibirParticipantes(participantes);
         System.out.print("  Número do participante: ");
+        // Seleciona o participante que fará o palpite
         Participante participante = selecionarParticipante();
         if (participante == null) return;
 
         // Exibe jogos existentes para selecionar em qual partida o palpite será feito
         exibicao.exibirJogos(jogos);
         System.out.print("  Número do jogo: ");
+        // Seleciona o jogo que receberá o palpite
         Jogo jogo = selecionarJogo();
         if (jogo == null) return;
 
@@ -196,6 +202,7 @@ public class MenuSistema{
             return;
         }
 
+        // Evita que o mesmo participante registre mais de um palpite para o mesmo jogo
         if (participante.getPalpitePorJogo(jogo) != null) {
             System.out.println(participante.getNome() + " já possui palpite para este jogo.");
             return;
@@ -207,8 +214,10 @@ public class MenuSistema{
         int golsVisitante = lerInt();
 
         System.out.print("  Jogador apostado para marcar gol (Enter para pular): ");
+        // Lê o nome do jogador apostado pelo participante, se houver
         String jogadorApostado = scanner.nextLine().trim();
 
+        // Usa o número de palpites já existentes para gerar um ID sequencial
         int id = participante.getPalpites().size() + 1;
         // Cria o objeto Palpite que relaciona participante, jogo e valores previstos.
         // O palpite guarda referências aos objetos envolvidos para uso posterior.
@@ -216,6 +225,7 @@ public class MenuSistema{
             ? new Palpite(id, participante, jogo, golsMandante, golsVisitante)
             : new Palpite(id, participante, jogo, golsMandante, golsVisitante, jogadorApostado);
 
+        // Adiciona o novo palpite ao participante para ser usado na pontuação futura
         participante.registrarPalpite(palpite);
         System.out.println("   Palpite registrado: " + palpite);
     }
@@ -245,11 +255,15 @@ public class MenuSistema{
         int golsA = lerInt();
         System.out.print("  Gols " + jogo.getSelecaoB().getNome() + " (visitante): ");
         int golsB = lerInt();
+        // Registra o placar real no objeto Jogo selecionado
         jogo.definirResultado(golsA, golsB);
 
+        // Cria o objeto que armazenará os gols reais por jogador
         ResultadoGols resultado = new ResultadoGols();
         System.out.print("  Quantos jogadores marcaram gol? ");
+        // Lê quantos jogadores reais terão registros de gols
         int qtd = lerInt();
+        // Registra o número de gols feitos por cada jogador informado
         for (int i = 0; i < qtd; i++) {
             System.out.print("  Nome do jogador " + (i + 1) + ": ");
             String nomeJ = scanner.nextLine().trim();
@@ -275,6 +289,7 @@ public class MenuSistema{
     // HELPERS DE SELEÇÃO
     // ---------------------------------------------------------------
     private Selecao selecionarSelecao() {
+        // Converte a opção escolhida pelo usuário em índice da lista
         int idx = lerInt() - 1;
         if (idx < 0 || idx >= selecoes.size()) {
             System.out.println("   Opção inválida.");
