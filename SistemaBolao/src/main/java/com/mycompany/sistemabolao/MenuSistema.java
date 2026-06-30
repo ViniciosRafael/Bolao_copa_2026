@@ -88,7 +88,7 @@ public class MenuSistema{
         }
 
         selecoes.add(selecao);
-        System.out.println("  ✔ Seleção " + selecao + " cadastrada com sucesso!");
+        System.out.println("  Seleção " + selecao + " cadastrada com sucesso!");
     }
 
     // ---------------------------------------------------------------
@@ -97,7 +97,7 @@ public class MenuSistema{
     private void cadastrarJogo() {
         System.out.println("\n--- CADASTRAR JOGO ---");
         if (selecoes.size() < 2) {
-            System.out.println("  ✘ Cadastre pelo menos 2 seleções antes de criar um jogo.");
+            System.out.println("  Cadastre pelo menos 2 seleções antes de criar um jogo.");
             return;
         }
 
@@ -112,7 +112,7 @@ public class MenuSistema{
         if (visitante == null) return;
 
         if (mandante == visitante) {
-            System.out.println("  ✘ Mandante e visitante não podem ser a mesma seleção.");
+            System.out.println("  Mandante e visitante não podem ser a mesma seleção.");
             return;
         }
 
@@ -124,7 +124,7 @@ public class MenuSistema{
 
         Jogo jogo = new Jogo(mandante, visitante, LocalDateTime.of(ano, mes, dia, hora, minuto));
         jogos.add(jogo);
-        System.out.println("  ✔ Jogo cadastrado: " + jogo);
+        System.out.println("   Jogo cadastrado: " + jogo);
     }
 
     // ---------------------------------------------------------------
@@ -138,7 +138,7 @@ public class MenuSistema{
         String email = scanner.nextLine().trim();
 
         participantes.add(new Participante(nome, email));
-        System.out.println("  ✔ Participante " + nome + " cadastrado com sucesso!");
+        System.out.println("   Participante " + nome + " cadastrado com sucesso!");
     }
 
     // ---------------------------------------------------------------
@@ -147,11 +147,11 @@ public class MenuSistema{
     private void registrarPalpite() {
         System.out.println("\n--- REGISTRAR PALPITE ---");
         if (jogos.isEmpty()) {
-            System.out.println("  ✘ Nenhum jogo cadastrado.");
+            System.out.println(" Nenhum jogo cadastrado.");
             return;
         }
         if (participantes.isEmpty()) {
-            System.out.println("  ✘ Nenhum participante cadastrado.");
+            System.out.println("  Nenhum participante cadastrado.");
             return;
         }
 
@@ -166,12 +166,12 @@ public class MenuSistema{
         if (jogo == null) return;
 
         if (jogo.isFinalizado()) {
-            System.out.println("  ✘ Este jogo já foi finalizado. Não é possível registrar palpite.");
+            System.out.println("   Este jogo já foi finalizado. Não é possível registrar palpite.");
             return;
         }
 
         if (participante.getPalpitePorJogo(jogo) != null) {
-            System.out.println("  ✘ " + participante.getNome() + " já possui palpite para este jogo.");
+            System.out.println(participante.getNome() + " já possui palpite para este jogo.");
             return;
         }
 
@@ -189,7 +189,7 @@ public class MenuSistema{
             : new Palpite(id, participante, jogo, golsMandante, golsVisitante, jogadorApostado);
 
         participante.registrarPalpite(palpite);
-        System.out.println("  ✔ Palpite registrado: " + palpite);
+        System.out.println("   Palpite registrado: " + palpite);
     }
 
     // ---------------------------------------------------------------
@@ -198,7 +198,7 @@ public class MenuSistema{
     private void registrarResultado() {
         System.out.println("\n--- REGISTRAR RESULTADO ---");
         if (jogos.isEmpty()) {
-            System.out.println("  ✘ Nenhum jogo cadastrado.");
+            System.out.println("   Nenhum jogo cadastrado.");
             return;
         }
 
@@ -208,7 +208,7 @@ public class MenuSistema{
         if (jogo == null) return;
 
         if (jogo.isFinalizado()) {
-            System.out.println("  ✘ Este jogo já possui resultado registrado.");
+            System.out.println("  Este jogo já possui resultado registrado.");
             return;
         }
 
@@ -238,8 +238,8 @@ public class MenuSistema{
             }
         }
 
-        System.out.println("  ✔ Resultado registrado: " + jogo);
-        System.out.println("  ✔ Pontuações dos participantes atualizadas!");
+        System.out.println("  Resultado registrado: " + jogo);
+        System.out.println("  Pontuações dos participantes atualizadas!");
     }
 
     // ---------------------------------------------------------------
@@ -248,7 +248,7 @@ public class MenuSistema{
     private Selecao selecionarSelecao() {
         int idx = lerInt() - 1;
         if (idx < 0 || idx >= selecoes.size()) {
-            System.out.println("  ✘ Opção inválida.");
+            System.out.println("   Opção inválida.");
             return null;
         }
         return selecoes.get(idx);
@@ -257,7 +257,7 @@ public class MenuSistema{
     private Jogo selecionarJogo() {
         int idx = lerInt() - 1;
         if (idx < 0 || idx >= jogos.size()) {
-            System.out.println("  ✘ Opção inválida.");
+            System.out.println(" Opção inválida.");
             return null;
         }
         return jogos.get(idx);
@@ -266,7 +266,7 @@ public class MenuSistema{
     private Participante selecionarParticipante() {
         int idx = lerInt() - 1;
         if (idx < 0 || idx >= participantes.size()) {
-            System.out.println("  ✘ Opção inválida.");
+            System.out.println("   Opção inválida.");
             return null;
         }
         return participantes.get(idx);
