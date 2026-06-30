@@ -54,7 +54,7 @@ public class MenuSistema{
                 case 4 -> registrarPalpite();
                 case 5 -> registrarResultado();
                 case 6 -> exibicao.exibirTudo(selecoes, jogos, participantes);
-                case 0 -> System.out.println("\n  Até a próxima! ⚽\n");
+                case 0 -> System.out.println("\n  Até a próxima! \n");
                 default -> System.out.println("  Opção inválida. Tente novamente.");
             }
         }
