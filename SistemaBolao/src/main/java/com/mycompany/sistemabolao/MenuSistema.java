@@ -15,7 +15,7 @@ public class MenuSistema{
 
     // Lê as entradas digitadas pelo usuário no console
     private final Scanner scanner = new Scanner(System.in);
-    // Usado para exibir listas e informações formatadas do bolão
+    // Objeto que encapsula a lógica de exibição de listas e relatórios do bolão
     private final ExibicaoSistema exibicao = new ExibicaoSistema();
 
     // Armazena as seleções cadastradas pelo usuário
@@ -25,7 +25,9 @@ public class MenuSistema{
     // Armazena os participantes do bolão
     private final List<Participante> participantes = new ArrayList<>();
 
-    // Conjunto de regras de pontuação aplicadas aos palpites
+    // Regras de pontuação são armazenadas em um vetor de objetos que implementam
+    // a mesma interface Pontuacao. Isso permite aplicar diferentes estratégias
+    // de cálculo sem alterar o código de quem usa essas regras.
     private final Pontuacao[] regras = {
         new RegraVencedor(),
         new RegraGolsEquipe(),
@@ -56,6 +58,7 @@ public class MenuSistema{
 
             // Lê a opção numérica escolhida pelo usuário
             opcao = lerInt();
+            // Cada opção chama um método separado, seguindo o princípio de responsabilidade única
             switch (opcao) {
                 case 1 -> cadastrarSelecao();
                 case 2 -> cadastrarJogo();
@@ -137,7 +140,8 @@ public class MenuSistema{
         System.out.print("  Hora (0-23): ");      int hora = lerInt();
         System.out.print("  Minuto (0-59): ");    int minuto = lerInt();
 
-        // Cria o jogo com data/hora e equipes informadas
+        // Cria o objeto Jogo com as seleções e data/hora selecionadas.
+        // O jogo guarda referências para os objetos Selecao (mandante/visitante).
         Jogo jogo = new Jogo(mandante, visitante, LocalDateTime.of(ano, mes, dia, hora, minuto));
         jogos.add(jogo);
         System.out.println("   Jogo cadastrado: " + jogo);
@@ -153,7 +157,8 @@ public class MenuSistema{
         System.out.print("  Email: ");
         String email = scanner.nextLine().trim();
 
-        // Cria um novo participante e adiciona à lista de participantes
+        // Cria um novo objeto Participante e armazena na lista do sistema.
+        // Participante estende Usuario e herdará nome/email da classe base.
         participantes.add(new Participante(nome, email));
         System.out.println("   Participante " + nome + " cadastrado com sucesso!");
     }
@@ -203,7 +208,8 @@ public class MenuSistema{
         String jogadorApostado = scanner.nextLine().trim();
 
         int id = participante.getPalpites().size() + 1;
-        // Cria o palpite com ou sem jogador apostado
+        // Cria o objeto Palpite que relaciona participante, jogo e valores previstos.
+        // O palpite guarda referências aos objetos envolvidos para uso posterior.
         Palpite palpite = jogadorApostado.isEmpty()
             ? new Palpite(id, participante, jogo, golsMandante, golsVisitante)
             : new Palpite(id, participante, jogo, golsMandante, golsVisitante, jogadorApostado);
@@ -272,6 +278,7 @@ public class MenuSistema{
             System.out.println("   Opção inválida.");
             return null;
         }
+        // Retorna o objeto Selecao escolhido pelo usuário
         return selecoes.get(idx);
     }
 
@@ -281,6 +288,7 @@ public class MenuSistema{
             System.out.println(" Opção inválida.");
             return null;
         }
+        // Retorna o objeto Jogo escolhido pelo usuário
         return jogos.get(idx);
     }
 
