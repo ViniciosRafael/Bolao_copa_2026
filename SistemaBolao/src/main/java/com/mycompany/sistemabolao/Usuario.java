@@ -8,12 +8,13 @@ package com.mycompany.sistemabolao;
  *
  * @author vinic
  */
+// Classe base abstrata que define os dados e comportamento comuns dos usuários
 public abstract class Usuario {
     // Atributos privados comuns para encapsulamento
     private String nome;
     private String email;
 
-    // Construtor completo
+    // Construtor completo usado por classes filhas como Administrador e Participante
     public Usuario(String nome, String email) {
         this.nome = nome;
         this.email = email;
@@ -26,7 +27,7 @@ public abstract class Usuario {
     public void setNome(String nome) {this.nome = nome;}
     public void setEmail(String email) {this.email = email;}
 
-    // Método útil para ajudar na exibição de dados ou relatórios
+    // Representação textual básica do usuário, usada em exibição e logs
     @Override
     public String toString() {
         return "Nome: " + nome + " | Email: " + email;

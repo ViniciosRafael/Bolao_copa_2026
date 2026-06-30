@@ -11,12 +11,13 @@ import java.util.List;
  *
  * @author vinic
  */
+// Participante estende Usuario e adiciona pontos e palpites específicos do bolão
 public class Participante extends Usuario {
 
-    // Atributo específico do Participante para armazenar o total de pontos do ranking
+    // Total de pontos conquistados pelo participante no ranking
     private int pontosAcumulados;
 
-    // Lista de palpites registrados pelo participante
+    // Palpites registrados pelo participante durante o bolão
     private List<Palpite> palpites;
 
     // Construtor que recebe nome e email (repassados para a superclasse) e inicializa os pontos em 0
@@ -41,19 +42,25 @@ public class Participante extends Usuario {
         return null;
     }
 
-    // Métodos Getters e Setters para o atributo de pontos
+    // Retorna o número de pontos acumulados pelo participante
     public int getPontosAcumulados() { return pontosAcumulados; }
     public void setPontosAcumulados(int pontosAcumulados) { this.pontosAcumulados = pontosAcumulados; }
 
-    // Método auxiliar para adicionar novos pontos à pontuação existente do participante
+    // Incrementa a pontuação do participante de forma acumulativa
     public void adicionarPontos(int pontos) {
         this.pontosAcumulados += pontos;
     }
 
+    // Retorna a lista de palpites deste participante
     public List<Palpite> getPalpites() {
         return palpites;
     }
 
+    // Este método fornece a descrição em texto do participante.
+    // Primeiro ele adiciona o prefixo [Participante] para identificar o tipo.
+    // Em seguida, reutiliza a representação da superclasse Usuario com super.toString().
+    // Por fim, acrescenta o total de pontos acumulados e a quantidade de palpites.
+    // A anotação @Override garante que essa versão substitui o toString() herdado.
     @Override
     public String toString() {
         return "[Participante] " + super.toString()
